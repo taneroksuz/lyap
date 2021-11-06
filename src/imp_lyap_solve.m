@@ -4,7 +4,7 @@ function [X,res] = imp_lyap_solve( A,B,E )
 % 
 % Solve  A' X E + E' X A + B = 0
 %
-% Bartels Stewart method für implizite Lyapunov Gleichung
+% Bartels Stewart method fuer implizite Lyapunov Gleichung
 
 n = size(A,1); 
 

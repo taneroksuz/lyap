@@ -4,7 +4,7 @@ function [U,Q] = lyapBsolve( A,B,k )
 % 
 % Solve  A' (U' U) + (U' U) A + B'B = 0
 %
-% Block Hammarling method für implizite Lyapunov Gleichung
+% Block Hammarling method fuer implizite Lyapunov Gleichung
 
 n = size(A,1);
 m = size(B,1);

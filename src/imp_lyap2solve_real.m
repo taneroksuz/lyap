@@ -4,7 +4,7 @@ function [ X,res ] = imp_lyap2solve_real( A,B,E )
 % 
 % Solve  A' X E + E' X A + B = 0
 %
-% 2-Solve method für obige implizite Lyapunov Gleichung
+% 2-Solve method fuer obige implizite Lyapunov Gleichung
 
 n = size(A,1); 
 

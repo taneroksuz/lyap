@@ -4,7 +4,7 @@ function  U  = imp_lyapBsolve_real( A,B,E,k )
 % 
 % Solve  A' X E + E' X A + B'B = 0
 %
-% Block Hammarling method real variant für implizite Lyapunov Gleichung
+% Block Hammarling method real variant fuer implizite Lyapunov Gleichung
 
 n = size(A,1);
 m = size(B,1);

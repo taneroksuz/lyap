@@ -4,7 +4,7 @@ function  U  = imp_lyapBsolve( A,B,E,k )
 % 
 % Solve  A' X E + E' X A + B'B = 0
 %
-% Block Hammarling method für implizite Lyapunov Gleichung
+% Block Hammarling method fuer implizite Lyapunov Gleichung
 
 n = size(A,1);
 m = min(size(B));
