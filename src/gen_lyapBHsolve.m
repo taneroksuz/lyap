@@ -1,10 +1,10 @@
-function  U  = imp_lyapBsolve( A,B,E,k )
+function X = gen_lyapBHsolve(A,B,E,k)
 
-%function X = imp_lyap_solve(A,B);
+%function X = gen_lyapBHsolve(A,B,E,k);
 % 
 % Solve  A' X E + E' X A + B'B = 0
 %
-% Block Hammarling method fuer implizite Lyapunov Gleichung
+% Block Hammarling method for generalized lyapunov equation
 
 n = size(A,1);
 m = min(size(B));
@@ -50,7 +50,10 @@ while i<=n
     i = l+1;
 end
 
+U(isnan(U)) = 0;
+
 U = U*Q;
+X = U'*U;
 
 end
 

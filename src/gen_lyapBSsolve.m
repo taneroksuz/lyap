@@ -1,10 +1,10 @@
-function [X,res] = imp_lyap_solve( A,B,E )
+function X = gen_lyapBSsolve(A,B,E)
 
-%function X = imp_lyap_solve(A,B);
+% function X = gen_lyapBSsolve(A,B,E);
 % 
 % Solve  A' X E + E' X A + B = 0
 %
-% Bartels Stewart method fuer implizite Lyapunov Gleichung
+% Bartels Stewart method for generalized lyapunov equation
 
 n = size(A,1); 
 
@@ -34,6 +34,6 @@ for i=1:n
 end
 
 X = Q'*X*Q;
-res = norm(A'*X*E+E'*X*A+B,'fro');
+
 end
 

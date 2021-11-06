@@ -1,10 +1,10 @@
-function [ X,res ] = lyap_solve( A,B )
+function X = lyapBSsolve(A,B)
 
-%function X = lyap2solve(A,B);
+%function X = lyapBSsolve(A,B);
 % 
 % Solve  A X + X A' + B = 0
 %
-% Bartels Stewart Method
+% Bartels Stewart method for lyapunov equation
 
 n = size(A,1);
 
@@ -22,8 +22,6 @@ for i = n:-1:1
 end
 
 X = Q*X*Q';
-
-res = norm(A*X+X*A'+B,'fro');
 
 end
 

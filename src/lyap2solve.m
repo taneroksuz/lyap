@@ -1,12 +1,15 @@
 function X = lyap2solve(A,B);
-%function X = lyap2solve(A,B);
+  
+% function X = lyap2solve(A,B);
 % 
 % Solve  A X + X A' + B = 0
 %
-% Zhou and Sorensen 2-solve  method
+% Zhou and Sorensen 2-solve method for lyapunov equation
 
-%Ech = chol(E,'lower');%Ech*Ech' = E;
-%A = (Ech\A)/(Ech'); B = (Ech\B)/(Ech');
+% Ech = chol(E,'lower');
+% Ech*Ech' = E;
+% A = (Ech\A)/(Ech'); 
+% B = (Ech\B)/(Ech');
 
 
 m = size(A,1); n = size(B,2);
@@ -19,7 +22,7 @@ j=1;
 
 while (j < n+1)
  
-  if j==n | (j<n  & abs(R2(j+1,j))<10*eps*max( abs(R2(j,j)), abs(R2(j+1,j+1))) )
+  if j==n || (j<n  & abs(R2(j+1,j))<10*eps*max( abs(R2(j,j)), abs(R2(j+1,j+1))) )
  
       if (j>1), b = -B(:,j) - X(:,1:j-1)*R2(1:j-1,j);else
               b = -B(:,j) ;end
@@ -40,12 +43,11 @@ end
 
 X = Q*X*Q2';
 
-
 % Cholesky factor
-%[Vx,Dx] = eig((X+X')/2);
-%X = Vx*diag(sqrt(diag(Dx).*indx));
-%indx=(diag(Dx)>0);
-%X = Ech'\(Vx(:,indx)*sqrt(Dx(indx,indx)));
+% [Vx,Dx] = eig((X+X')/2);
+% X = Vx*diag(sqrt(diag(Dx).*indx));
+% indx=(diag(Dx)>0);
+% X = Ech'\(Vx(:,indx)*sqrt(Dx(indx,indx)));
 
 
 

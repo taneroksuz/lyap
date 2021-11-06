@@ -1,14 +1,14 @@
-function [ X,res ] = imp_lyap2solve_real_2( A,B,E )
+function X = gen_lyap2solve_real(A,B,E)
 
-%function X = imp_lyap_solve(A,B);
+% function X = gen_lyap2solve_real(A,B,E);
 % 
 % Solve  A' X E + E' X A + B = 0
 %
-% 2-Solve method fuer obige implizite Lyapunov Gleichung
+% 2-solve method (real variant) for generalized lyapunov equation
 
 n = size(A,1); 
 
-[AA,EE,Q,Z]=qz(A,E,'real');
+[AA,EE,Q,Z]=qz(A,E);
 
 BB = Z'*B*Z;
 
@@ -29,16 +29,20 @@ while (k<(n+1))
         M2 = EE_T*AA(k+1,k);
         M3 = EE_T*AA(k,k+1);
         M4 = AA_T*EE(k+1,k+1)+EE_T*AA(k+1,k+1);
-        x = [M1,M2;M3,M4]\[b(:,1);b(:,2)];
-        X(:,k) = x(1:n,:);
-        X(:,k+1) = x(n+1:2*n,:);
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        M = M2/M4;
+        X(:,k) = (M1-M*M3)\(b(:,1)-M*b(:,2));
+        X(:,k+1) = M2\(b(:,1)-M1*X(:,k));
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        % x = [M1,M2;M3,M4]\[b(:,1);b(:,2)];
+        % X(:,k) = x(1:n,:);
+        % X(:,k+1) = x(n+1:2*n,:);
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         k = k+2;
     end
 end
 
 X = Q'*X*Q;
-res = norm(A'*X*E+E'*X*A+B,'fro');
-
 
 end
 

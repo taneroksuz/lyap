@@ -1,8 +1,14 @@
+clc;
+close all;
 clear all;
+profile clear;
 
-n = 400;
+pkg load control;
+warning('off', 'all');
+
+n = 2000;
 m = 2;
-k = round(n/5);
+k = 100;
 
 A = rand(n);
 B = eye(m,n);
@@ -14,34 +20,27 @@ end
 BB = B'*B;
 
 profile on;
+
 tic;
-[U1,Q1] = lyapBsolve(A',B,k);
+X1 = lyapBHsolve(A',B,k);
 t1 = toc;
-
-
-tic;
-X2 = lyap2solve(A,BB);
-t2 = toc;
-
-r2 = norm(A*X2+X2*A'+BB);
-
+r1 = norm(A*X1+X1*A'+BB,'fro');
 
 % tic;
-% [X3,r3] = lyap_solve(A,BB);
-% t3 = toc;
+% X2 = lyap2solve(A,BB);
+% t2 = toc;
+% r2 = norm(A*X2+X2*A'+BB,'fro');
 
-tic;
-X4 = lyap(A,BB);
-t4 = toc;
-r4 = norm(A*X4+X4*A'+BB,'fro');
+% tic;
+% X3 = lyapBSsolve(A,BB);
+% t3 = toc;
+% r3 = norm(A*X3+X3*A'+BB,'fro');
+
+% tic;
+% X4 = lyap(A,BB);
+% t4 = toc;
+% r4 = norm(A*X4+X4*A'+BB,'fro');
 
 profile off;
 
-X1 = (U1'*U1);
-
-diff_X = abs(X1-Q1'*X2*Q1);
-
-X1 = Q1*X1*Q1';
-r1 = norm(A*X1+X1*A'+B'*B);
-
-profile viewer;
+profshow();

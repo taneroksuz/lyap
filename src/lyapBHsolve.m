@@ -1,10 +1,10 @@
-function [U,Q] = lyapBsolve( A,B,k )
+function X = lyapBHsolve(A,B,k)
 
-%function X = imp_lyap_solve(A,B);
+% function X = lyapBHsolve(A,B,k);
 % 
-% Solve  A' (U' U) + (U' U) A + B'B = 0
+% Solve  A' X + X A + B'B = 0
 %
-% Block Hammarling method fuer implizite Lyapunov Gleichung
+% Kressner Block Hammarling method for lyapunov equation
 
 n = size(A,1);
 m = size(B,1);
@@ -43,6 +43,10 @@ while i<=n
     end
     i = l+1;
 end
+
+U(isnan(U)) = 0;
+U = U*Q';
+X = U'*U;
 
 end
 

@@ -1,10 +1,10 @@
-function [ X,res ] = imp_lyap2solve( A,B,E )
+function X = gen_lyap2solve(A,B,E)
 
-%function X = imp_lyap_solve(A,B);
+% function X = gen_lyap2solve(A,B,E);
 % 
 % Solve  A' X E + E' X A + B = 0
 %
-% 2-Solve method fuer obige implizite Lyapunov Gleichung
+% 2-solve method for generalized lyapunov equation
 
 n = size(A,1); 
 
@@ -38,8 +38,6 @@ while (k<(n+1))
 end
 
 X = Q'*X*Q;
-res = norm(A'*X*E+E'*X*A+B,'fro');
-
 
 end
 
