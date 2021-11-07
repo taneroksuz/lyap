@@ -43,7 +43,6 @@ while i<=n
             BB(:,j:l) = q'*BB(:,j:l);
             U(j,j) = abs(BB(1,j))/sqrt(-2*(AA(j,j)*EE(j,j)));
             if (abs(U(j,j)) == 0)
-                U(j,j) = 0;
                 break;
             end
             f(j) = BB(1,j)/U(j,j);
@@ -67,7 +66,6 @@ while i<=n
             x2 = M2\(-bb(:,1)-M1*x1);
             U(j,j) = sqrt(x1(1));
             if (abs(U(j,j)) == 0)
-                U(j,j) = 0;
                 break;
             end
             U(j,j+1) = x1(2)/U(j,j);

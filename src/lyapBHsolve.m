@@ -26,7 +26,6 @@ while i<=n
         BB(:,j:l) = q'*BB(:,j:l);
         U(j,j) = BB(1,j)/sqrt(-(AA(j,j)'+AA(j,j)));
         if (abs(U(j,j)) == 0)
-            U(j,j) = 0;
             break;
         end
         f(j) = BB(1,j)/U(j,j);
