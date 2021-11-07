@@ -1,13 +1,14 @@
 clc;
 close all;
 clear all;
+profile off;
 profile clear;
 
 pkg load control;
-warning('off', 'all');
+warning('error', 'all');
 
 n = 2000;
-m = 2;
+m = 1;
 k = 100;
 
 A = randn(n);

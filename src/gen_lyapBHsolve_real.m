@@ -42,6 +42,10 @@ while i<=n
             qq(:,(j-1)*m+1:j*m) = q';
             BB(:,j:l) = q'*BB(:,j:l);
             U(j,j) = abs(BB(1,j))/sqrt(-2*(AA(j,j)*EE(j,j)));
+            if (abs(U(j,j)) == 0)
+                U(j,j) = 0;
+                break;
+            end
             f(j) = BB(1,j)/U(j,j);
             r = -f(j)'*BB(1,j+1:l)-U(j,j)*(EE(j,j)*AA(j,j+1:l)+AA(j,j)*EE(j,j+1:l));
             U(j,j+1:l) = (r/(EE(j,j)*AA(j+1:l,j+1:l)+AA(j,j)*EE(j+1:l,j+1:l)));
@@ -62,9 +66,16 @@ while i<=n
             x1 = (M1-M*M3)\(-bb(:,1)+M*bb(:,2));
             x2 = M2\(-bb(:,1)-M1*x1);
             U(j,j) = sqrt(x1(1));
+            if (abs(U(j,j)) == 0)
+                U(j,j) = 0;
+                break;
+            end
             U(j,j+1) = x1(2)/U(j,j);
             U(j+1,j+1) = sqrt(x2(2)-U(j,j+1)^2);
             Z = U(j:j+1,j:j+1)*EE(j:j+1,j:j+1);
+            if (isinf(cond(Z)))
+                break;
+            end
             Z2(:,2*j-1:j*2) = BB(:,j:j+1)/Z;
             Z = U(j:j+1,j:j+1)*AA(j:j+1,j:j+1)/Z;
             Z1(:,2*j-1:j*2) = Z;
@@ -99,6 +110,9 @@ while i<=n
                 BB(:,p_f:p_l) = qq(:,(j-1)*m+1:j*m)*BB(:,p_f:p_l);
                 r = -f(j)*BB(1,p_f:p_l)-(EE(j,j)*UA(j,:)+AA(j,j)*UE(j,:));
                 U(j,p_f:p_l) = (r/(EE(j,j)*AA(p_f:p_l,p_f:p_l)+AA(j,j)*EE(p_f:p_l,p_f:p_l)));
+                if (norm(U(j,p_f:p_l)) == 0)
+                    break;
+                end
                 v = U(j,j+1:p_l)*AA(j+1:p_l,p_f:p_l)+AA(j,p_f:p_l)*U(j,j);
                 w = U(j,j+1:p_l)*EE(j+1:p_l,p_f:p_l)+EE(j,p_f:p_l)*U(j,j);
                 BB(1,p_f:p_l) = (EE(j,j)*v-AA(j,j)*w)/abs(f(j));
@@ -113,6 +127,9 @@ while i<=n
                 N4 = AA_T(p_f:p_l,p_f:p_l)+EE_T(p_f:p_l,p_f:p_l)*Z(2,2);
                 N = N2/N4;
                 U(j,p_f:p_l) = (N1-N*N3)\(r(:,1)-N*r(:,2));
+                if (norm(U(j,p_f:p_l)) == 0)
+                    break;
+                end
                 U(j+1,p_f:p_l) = N2\(r(:,1)-N1*U(j,p_f:p_l)');
                 BB(:,p_f:p_l) = BB(:,p_f:p_l)-Z2(:,2*j-1:j*2)*(U(j:j+1,j:j+1)*EE(j:j+1,p_f:p_l)+U(j:j+1,j+2:p_l)*EE(j+2:p_l,p_f:p_l));
                 j = j+2;
@@ -122,7 +139,7 @@ while i<=n
     i = l+1;
 end
 
-U(isnan(U)) = 0;
+% U(isnan(U)) = 0;
 
 U = U*Q;
 X = U'*U;

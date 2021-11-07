@@ -25,6 +25,10 @@ while i<=n
         qq(:,(j-1)*m+1:j*m) = q';
         BB(:,j:l) = q'*BB(:,j:l);
         U(j,j) = BB(1,j)/sqrt(-(AA(j,j)'+AA(j,j)));
+        if (abs(U(j,j)) == 0)
+            U(j,j) = 0;
+            break;
+        end
         f(j) = BB(1,j)/U(j,j);
         r = -f(j)'*BB(1,j+1:l)-U(j,j)'*AA(j,j+1:l);
         U(j,j+1:l) = (r/(AA(j+1:l,j+1:l)+AA(j,j)'*eye(l-j)));
@@ -38,13 +42,17 @@ while i<=n
             BB(:,p_f:p_l) = qq(:,(j-1)*m+1:j*m)*BB(:,p_f:p_l);
             rp = -f(j)'*BB(1,p_f:p_l)-U(j,p_f:p_l);
             U(j,p_f:p_l) = (rp/(AA(p_f:p_l,p_f:p_l)+AA(j,j)'*eye(p_l-p_f+1)));
+            if (norm(U(j,p_f:p_l)) == 0)
+                break;
+            end
             BB(1,p_f:p_l) = BB(1,p_f:p_l)-f(j)*U(j,p_f:p_l);
         end
     end
     i = l+1;
 end
 
-U(isnan(U)) = 0;
+% U(isnan(U)) = 0;
+
 U = U*Q';
 X = U'*U;
 

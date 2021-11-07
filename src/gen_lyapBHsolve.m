@@ -26,6 +26,10 @@ while i<=n
         qq(:,(j-1)*m+1:j*m) = q';
         BB(:,j:l) = q'*BB(:,j:l);
         U(j,j) = abs(BB(1,j))/sqrt(-(AA(j,j)*EE(j,j)'+AA(j,j)'*EE(j,j)));
+        if (abs(U(j,j)) == 0)
+            U(j,j) = 0;
+            break;
+        end
         f(j) = BB(1,j)/U(j,j);
         r = -f(j)'*BB(1,j+1:l)-U(j,j)*(EE(j,j)'*AA(j,j+1:l)+AA(j,j)'*EE(j,j+1:l));
         U(j,j+1:l) = (r/(EE(j,j)'*AA(j+1:l,j+1:l)+AA(j,j)'*EE(j+1:l,j+1:l)));
@@ -42,6 +46,9 @@ while i<=n
             BB(:,p_f:p_l) = qq(:,(j-1)*m+1:j*m)*BB(:,p_f:p_l);
             r = -f(j)'*BB(1,p_f:p_l)-(EE(j,j)'*UA(j,:)+AA(j,j)'*UE(j,:));
             U(j,p_f:p_l) = (r/(EE(j,j)'*AA(p_f:p_l,p_f:p_l)+AA(j,j)'*EE(p_f:p_l,p_f:p_l)));
+            if (norm(U(j,p_f:p_l)) == 0)
+                break;
+            end
             v = U(j,j+1:p_l)*AA(j+1:p_l,p_f:p_l)+AA(j,p_f:p_l)*U(j,j)';
             w = U(j,j+1:p_l)*EE(j+1:p_l,p_f:p_l)+EE(j,p_f:p_l)*U(j,j)';
             BB(1,p_f:p_l) = (EE(j,j)*v-AA(j,j)*w)/abs(f(j));
@@ -50,7 +57,7 @@ while i<=n
     i = l+1;
 end
 
-U(isnan(U)) = 0;
+% U(isnan(U)) = 0;
 
 U = U*Q;
 X = U'*U;
