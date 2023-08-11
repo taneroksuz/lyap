@@ -1,7 +1,7 @@
 function X = lyapBHsolve(A,B,k)
 
 % function X = lyapBHsolve(A,B,k);
-% 
+%
 % Solve  A' X + X A + B'B = 0
 %
 % Kressner Block Hammarling method for lyapunov equation

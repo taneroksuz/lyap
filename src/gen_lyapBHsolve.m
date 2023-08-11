@@ -1,7 +1,7 @@
 function X = gen_lyapBHsolve(A,B,E,k)
 
 %function X = gen_lyapBHsolve(A,B,E,k);
-% 
+%
 % Solve  A' X E + E' X A + B'B = 0
 %
 % Block Hammarling method for generalized lyapunov equation

@@ -1,7 +1,7 @@
 function X = lyap2solve(A,B);
-  
+
 % function X = lyap2solve(A,B);
-% 
+%
 % Solve  A X + X A' + B = 0
 %
 % Zhou and Sorensen 2-solve method for lyapunov equation

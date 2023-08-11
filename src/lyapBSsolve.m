@@ -1,7 +1,7 @@
 function X = lyapBSsolve(A,B)
 
 %function X = lyapBSsolve(A,B);
-% 
+%
 % Solve  A X + X A' + B = 0
 %
 % Bartels Stewart method for lyapunov equation

@@ -1,12 +1,12 @@
 function X = gen_lyapBSsolve(A,B,E)
 
 % function X = gen_lyapBSsolve(A,B,E);
-% 
+%
 % Solve  A' X E + E' X A + B = 0
 %
 % Bartels Stewart method for generalized lyapunov equation
 
-n = size(A,1); 
+n = size(A,1);
 
 [AA,EE,Q,Z]=qz(A,E,'complex');
 
